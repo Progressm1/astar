@@ -51,23 +51,17 @@ def path_costs(path):
 
 def a_star(start, goal, h, g):
     frontier = PQueue()
-    # pushing path and cost to pqueue
     frontier.push(start, h[start])
     while True:
-        # popping path with least cost
         path, cost = frontier.pop()
         print(path + " " + str(cost))
-        # splitting out end node in path
         end = path.split("->")[-1]
-        # removing heuristic value of end node from cost
         cost -= h[end]
         if goal == end:
             break
         for node, weight in g[end].items():
-            # adding edge weight(cost) and node heuristic to total cost
             new_cost = cost + weight + h[node]
             new_path = path + "->" + node
-            # adding new path and cost to pqueue
             frontier.push(new_path, new_cost)
 
 a_star('Arad', 'Bucharest', heuristics('/home/Heuristics.txt'), path_costs('/home/PathCosts.txt'))
